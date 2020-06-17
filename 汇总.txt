@@ -1,0 +1,225 @@
+执行测试用例的三种方式
+1、直接执行
+unittest.main()
+2、使用TextTestRunner
+runner=unittest.TextTestRunner()
+runner.run(suite)
+3、使用HTMLTestRunner
+runner=unittest.HTMLTestRunner()
+runner.run(suite)
+
+加载测试案例的四种方式
+suite=unittest.TestCase()
+1、单条加载
+suite.addTest(模块名.类名('TestCasename'))
+2、按模块名加载
+loader=unittest.TestLoader()
+suite.addTest(loader.loadTestsFromModul(模块名))
+3、按类名加载
+loader=unittest.TestLoader()
+suite.addTest(loader.loadTestsFromTestCase(类名))
+4、按指定路径下特定的文件加载
+discover=unittest.deafultTestLoader.discover(测试文件路径,pattern='Test*.py')
+runner.run(discover)
+
+
+读取配置文件configparser
+config=configparser.ConfigParser()			#创建对象        
+config.read(filename,encoding='GB18030')	#读取配置文件filename
+config.sections()							#获取配置文件的块
+config.options(section_name)				#获取块的项
+config.items(section_name)					#获取块的key-value
+config.get(section_name,key)				#获取指定块的key
+config.add_section(section_name)			#添加块
+config.set(section_name,option_name,value)	#设置块的key-value
+o=open(filename,'w')						#以写打开配置文件
+config.write(o)								#写入配置文件
+o.close()
+config.remove_section(section_name)			#移除指定的块
+config.remove_option(section_name,option_name)#移除块的某一项
+
+列表，可变序列结构
+创建列表 l=[1,'a',2,(1,2),[1,2]]
+切片
+l[:]==[1,'a',2,(1,2),[1,2]]
+l[2:4]==[2,(1,2)] 左闭右开 
+l[0:4:2]==[1,(1,2)] 步幅2
+l[::-1] 翻转列表元素 原列表不变
+删除列表 del l 
+删除列表元素 del l[0];l.remove('a');l.pop()
+针对列表的常见函数len(l),max(l),min(l)
+把可迭代对象转换为列表 list(sque)
+列表加法[1,2,3]+['a','b']==[1,2,3,'a','b']
+列表乘法 [1,2]*3==[1,2,1,2,1,2]
+列表的内置方法
+append() 在列表尾部添加元素 [1,2].append('abc')==[1,2,'abc']
+pop()  移除最后一个元素并抛出
+extend()  把其他的序列转化成列表与其合并 [1,2].extend('abc')==[1,2,'a','b','c']
+count() 列表中某个元素出现的次数
+index() 返回某个元素的索引值
+remove() 移除某个元素
+insert(index，obj) 插入元素 
+reverse()  返回列表元素翻转，原列表改变
+sort() 给列表元素排序后，元素只能都是int或str，默认升序,添加参数reverse=True，降序排列
+copy() 复制列表
+clear() 清除列表元素 [1,2,3].clear()==[]等同于del [1,2,3][:]
+
+元组，不可变序列结构
+t=(1,2,3,'a')
+元组没有修改、删除、增加等操作
+查询、切片同列表，
+常用函数 len(t),max(t),min(t),tuple(iterable)
+元组的访问和处理速度比列表快
+
+字符串，不可变序列结构
+支持下标索引、切片
+s='abcdefg'
+s[0]==a;s[0:3]=='abcd'
+字符串的计算+ * 
+'ab'+'12'=='ab12'
+'ab'*3=='ababab'
+多行字符用三引号'''
+转义字符
+\n 换行符
+\t 横向制表符
+\r 回车
+\\ 单斜杠
+\033 颜色控制
+\' 单引号
+\" 双引号
+
+format格式化:
+'{}-{}'.format('a','b')==a-b
+'{0}-{1}-{0}'.format('a','b')==a-b-a
+'{0}-{1}-{2}'.format('a'.'b','c')==a-b-c
+'{name}-{age}-{name}'.format(age='b',name='a')==a-b-a
+
+
+编码
+ASCII 英文系编码 只有255个字符 不兼容汉字 8位表示一个字节
+unicode 万国码 2个字节表示一个汉字
+utf-8 unicode上优化而来，一个字节表示英文字母，3个字节表示表示一个汉字
+python3在运行时全部使用unicode编码
+
+字典，有序，不定长，可变的集合类型
+dic={key1:value1,key2:value2}
+修改、增加元素
+dic[key1]=new_value1
+dic[key3]=value3
+字典的重要方法
+dic.pop(key) 移除key这组元素，返回value
+dic.popitem() 移除最后一组元素并返回(key，value)的元组，不接受参数
+dic.clear() 清除字典所有元素
+dic.items() 以列表返回可遍历的(键, 值) 元组对
+dic.keys() 以列表返回键
+dic.values() 以列表返回值
+dic.get(key) 获取指定键的值
+dic.copy() 复制字典，浅复制
+dic.update(dic2) 把dic2追加到dic
+del dic 删除字典
+del dic[key1] 移除key这对元素
+字典的遍历
+for key in dic:
+	print(key,dic[key])
+for key in dic.keys():
+	print(key,dic[key])
+for key,value in dic.items():
+	print(key,value)
+for value in dic.values():
+	print(value)
+
+集合set，无序不重复的元素的集合，核心功能是自动去重
+s={1,2,3,'a','b'}
+s.add(4)=={1,2,3,'a','b',4}，add重复的元素不会报错，会被自动去重
+s.update(字符串) 遍历字符串添加到集合中，自动去重
+s.update(list) 遍历列表元素，自动去重添加到集合中
+s.update(dict) 遍历字典的key值，添加到集合
+s.update(tuple) 遍历元组的元素，去重后添加到集合
+s.pop()不能指定元素，随机移除一个元素
+s.remove()
+s.clear()
+S.copy()
+
+函数的参数类型
+位置参数 def ff(v1,v2):
+默认参数 必须在位置参数的后面 def ff(v1,v2=2):
+动态参数 *args **kargs,必须在所有位置参数和默认参数的后面 def ff(v1,v2=2,*args,**kargs):
+万能参数 *args **kargs组合起来使用，理论上能接受任意数量和形式的参数，*args必须在*kargs的前面
+关键字参数 def ff(v1,v2=2,*,v3,*args,**kargs)
+
+匿名函数 lambda 参数:表达式 
+f=lambda x:x**2
+f(9)==81
+
+列表推导式
+li=[x*x for x in range(9)] -->[0, 1, 4, 9, 16, 25, 36, 49, 64]
+li2=[x**2 for x in range(9) if x%2==0] -->[0,4,16,36,64]
+li3=[a+b for a in '123' for b in 'xy'] -->['1x', '1y', '2x', '2y', '3x', '3y']
+字典推导式
+dic={x:x*2 for x in range(3)}-->{0: 0, 1: 2, 2: 4}
+集合推导式
+se={x for x in range(3)}-->{0,1,2}
+没有元组推导式，小括号()被用作生成器语法了
+
+迭代器iteration
+迭代器通常要实现两个方法iter()、next(),为了让自己写的类变为迭代器要在里面实现__iter__和__next__方法
+可以用collections模块的Iterable 判断对象是否可迭代
+from collections import Iterable
+isinstance('123',Iterable) -->True
+isinstance(123,Iterable) -->False
+迭代器都可被next()函数调用，只能往前，不能回溯，调完报StopIteration错误
+list\dict\tuple\string\set等可迭代对象 可以使用iter()函数转成迭代器
+
+文件读写
+f=open(filename,mode)
+	--mode:r,w,a,+
+	r+ 读写模式，推荐使用
+	w+ 每次写入都会清空之前的
+	a+ 尾部追加
+f.read() 读取全部
+f.readline() 读取一行，只能前进，不能后退
+f.readlines() 读取所有行，列表对象
+f.write() 写入
+f.flush() 刷新缓存
+f.close() 关闭
+f.tell() 返回当前指针所在位置的字节数
+f.seek(size) 指针跳转到指定的位置
+	seek(n,0) 从头偏移n个字节
+	seek(n,1) 从指针所在位置偏移n个字节
+	seek(-n,2) 从尾部向前偏移n个字节
+with关键字用作文本上下文的管理机制，保证文件被正常关闭，不需要使用close()
+with open(filename,mode) as f，open(filename2,mode) as ff:
+	f.write('****')
+	re=ff.read()
+
+封装:将数据和实现具体操作的代码放在某一对象内部，使得这些代码的细节不被外界发现，外界只能通过接口调用对象，而不能直接修改对象内部实现。正是由于封装机制，程序在使用某一对象时，不必关心对象内部的数据结构和实现操作的方法，使代码更易维护，在一定程度上提高了安全性
+继承:最大好处是获取了父类的全部变量和方法的同时，又可以根据需要进行修改和拓展；python支持多父类继承，如果继承的多个父类中含有相同的方法名，而调用时又未指定，那将按基类的顺序从左至右查询，使用查到的第一个该名称的方法
+多态：相同的方法不同的对象调用功能不一样。例如加法+，字符串相加和数字相加功能不一样，'a'+'b'=='ab',1+1==2
+
+
+xpath定位不到元素的情况
+1、id动态
+2、iframe
+3、不在一个iframe
+4、xpath语法
+5、元素没加载出来
+
+unittest加载测试案例默认是以ASCII码顺序，0-9，A-Z，a-z
+可以使用按TestSuite类的 addTest 按顺序加载用例和修改用例名如test_1_case，test_2_case
+
+WebDriverWait(driver,10,0.5).untill(lambda x:x.find_element_by_xpath('***')).sendkeys('***')
+
+property
+
+jmeter连接mysql数据库获取参数
+1、下载mysql驱动包，
+2、新建测试计划，导入驱动
+3、配置数据库连接参数
+	测试计划--配置元件--JDBC Connection Configuration
+4、查询数据库，建立JDBC请求
+	线程组--取样器--JDBC Request
+5、其他线程引用
+	${}
+	
+bzdx666
+gqkl666
